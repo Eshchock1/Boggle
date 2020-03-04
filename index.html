@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<!---
+BOGGLE by ESHWAR CHOCKALINGAM
+Released on April 18, 2019
+The purpose of this webpage is to be entertained by playing BOGGLE
+-->
+<html>
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:600" rel="stylesheet">
+    <link href="style.css" rel="stylesheet" type="text/css"/>
+</head>
+
+<body>
+  <!-- the pre game menu/main menu begins there..it contains:
+Game title, my name, username input bar, three difficulty buttons to play the game (easy, medium, and hard), and the How to Play page-->
+    <div id="preGameMenu">
+        <h1 class="menuTitle">BOGGLE</h1>
+        <div id="menuTitleNameContainer">
+            <h1 class="menuTitleName">Eshwar Chockalingam</h1>
+        </div>
+        <div id="userNameContainer">
+            <span id="incorrectUsername"></span><!-- Info box, that displays red text if the inputed username is invalid -->
+            <br>
+            <input id="userName" type="text" placeholder="Enter username here">
+        </div>
+        <button type="button" class="preGameMenuButton" onclick="checkUserName()">Play Game</button><!-- The "play game" button that reveals the three difficulties, and also checks if the username is valid-->
+        <br>
+        <!-- Div containing the difficulty buttons (easy, medium, and hard)-->
+        <div id="difficultyButtons">
+            <button type="button" class="easyButton" onclick="startGame(3)">Easy</button>
+            <button type="button" class="mediumButton" onclick="startGame(2)">Medium</button>
+            <button type="button" class="hardButton" onclick="startGame(1)">Hard</button>
+        </div>
+        <button type="button" class="preGameMenuButton" onclick="openHelpMenu()">How To Play</button><!-- Button that opens the "how to play" page-->
+        <br>
+        <!-- How to play page text-->
+        <div id="helpText">
+            <h1>ABOUT BOGGLE</h1> This game was created for entertainment purposes, by Eshwar Chockalingam, and was released on April 18, 2019.
+            <br>All content of this game belongs to EC Industries.
+            <h1>HOW TO PLAY</h1> Boggle is played with a tray of 16 letter dice, which is shaken to get 16 random letters.
+            <br> Players have THREE(easy), TWO(medium), or ONE(hard) minute depending on difficulty (shown by the countdown timer)
+            <br>to find as many words as they can in the grid. Form words by clicking on the letter buttons.
+            <h2>Words are to be formed according to the following rules:</h2> The letters must be adjoining in a 'chain'. (Letter cubes in the chain may be adjacent horizontally, vertically, or diagonally).
+            <br>Words must contain at least three letters.
+            <br>No letter die may be used more than once within a single word.
+            <br>A word can only be submitted once, even if it is formed with different dice.
+            <h2>The scoring is as follows:</h2>
+            <u>Fewer than 3 Letters: no score</u>
+            <br>For words 3 letters or longer, the points given is equal to the length of the submitted word
+            <br>
+            <br>
+            <br>To submit a word, click the submit word button, or press the <u>right arrow key</u>
+            <br>If you make a mistake and want to clear the board, press the clear board button, or the <u>left arrow key</u>.
+            <br>
+            <br>
+            <button type="button" class="closeHelp" onclick="closeHelpMenu()">I'm Ready To Play</button>
+        </div>
+    </div>
+    <!-- Pre game menu/main menu ends here, and the end game menu/game over menu is created (it is not actually visible yet)-->
+    <div id="endGameMenu">
+        <p id="txt"></p>
+                <button type="button" class="endGameMenuButton" onclick="playGame()">Replay</button>
+                <button type="button" class="endGameMenuButton" onclick="returnToMenu()">Main Menu</button>
+    </div>
+<!-- game space begins here-->
+    <div class="gameArea">
+        <table>
+            <tr>
+                <td>
+                  <!-- This area contains the game title, and the user's username-->
+                    <h1 class="title">BOGGLE</h1>
+                    <h2 id="titleName"></h2>
+                </td>
+                <td>
+                  <!-- A section which contains the user's high scores, and stats-->
+                    <h1 class="userStatsTitle">High Scores<h1>
+    <h2 id="userStats"></h2>
+  </td>
+  <td>
+    <button type="button" class="quitGameButton" onclick="quitGame()">Quit Game</button><!-- Quit game button to prematurely quit game if needed-->
+  </td>
+  </tr>
+  </table>
+  <center>
+    <!-- Outer table for organising game space-->
+    <table cellspacing="30">
+        <tr>
+            <td rowspan="3" valign="top">
+              <!-- Table of 16 boggle letter dice-->
+                <table>
+                    <tr>
+                        <td>
+                            <button type="button" id="0" class="style1" onclick="buttonClicked(0)"></button>
+                        </td>
+                        <td>
+                            <button type="button" id="1" class="style1" onclick="buttonClicked(1)"></button>
+                        </td>
+                        <td>
+                            <button type="button" id="2" class="style1" onclick="buttonClicked(2)"></button>
+                        </td>
+                        <td>
+                            <button type="button" id="3" class="style1" onclick="buttonClicked(3)"></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button type="button" id="4" class="style1" onclick="buttonClicked(4)"></button>
+                        </td>
+                        <td>
+                            <button type="button" id="5" class="style1" onclick="buttonClicked(5)"></button>
+                        </td>
+                        <td>
+                            <button type="button" id="6" class="style1" onclick="buttonClicked(6)"></button>
+                        </td>
+                        <td>
+                            <button type="button" id="7" class="style1" onclick="buttonClicked(7)"></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button type="button" id="8" class="style1" onclick="buttonClicked(8)"></button>
+                        </td>
+                        <td>
+                            <button type="button" id="9" class="style1" onclick="buttonClicked(9)"></button>
+                        </td>
+                        <td>
+                            <button type="button" id="10" class="style1" onclick="buttonClicked(10)"></button>
+                        </td>
+                        <td>
+                            <button type="button" id="11" class="style1" onclick="buttonClicked(11)"></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button type="button" id="12" class="style1" onclick="buttonClicked(12)"></button>
+                        </td>
+                        <td>
+                            <button type="button" id="13" class="style1" onclick="buttonClicked(13)"></button>
+                        </td>
+                        <td>
+                            <button type="button" id="14" class="style1" onclick="buttonClicked(14)"></button>
+                        </td>
+                        <td>
+                            <button type="button" id="15" class="style1" onclick="buttonClicked(15)"></button>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <!-- center column of outer table which contains the boxes which display the user's word and score-->
+            <td align = "center" valign="top">
+                <span class="wordScoreText">WORD:</span>
+                <input type="text" id="word" readonly="readonly">
+                <br> <span class="wordScoreText">SCORE:</span>
+                <input type="text" id="score" value="0" readonly="readonly">
+
+            </td>
+            <!-- Rightmost column of outer table which has a list of all the valid words the user has entered during the game-->
+            <td rowspan="3" valign="top">
+                <div class="wordDiv"> <span class="wordSpan white">WORDS SUBMITTED</span>
+                    <br>
+                    <br><span id="wordSubmitted"></span></div>
+
+            </td>
+        </tr>
+        <tr>
+          <!-- Timer to keep track of remaining time-->
+            <td align="center" valign="top">
+                <span id="timer">0:00<span>
+            </td>
+        </tr>
+        <tr>
+          <!-- Submit word and clear board buttons-->
+          <td align="center" valign="top">
+            <button type="button" onclick="submitWord()" id="submitButton">Submit Word</button>
+            <button type="button" onclick="clearBoard()" id="clearButton">Clear Board</button>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </center>
+</body>
+
+<script src="script.js"></script>
+
+</html>
